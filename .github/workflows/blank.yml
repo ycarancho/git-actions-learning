@@ -1,0 +1,30 @@
+#Nome do workflow
+name: Executar testes antes de publicar atualização em branchs utilizando JS como exemplo
+#Trigger que executa quando acontece um push para a branch apontada na configuração
+on:
+  push:
+    branches: [ main ]
+#Tarefas e passos a serem executados quando a trigger for ativada
+jobs:
+  teste-unitario:
+    #Provisionamento de maquina linux para executar o teste
+    runs-on: ubuntu-latest
+    #Passos a serem executados quando trigger ativada
+    steps:
+        #Action que baixa o codigo provissionado para a maquina segura para executar testes sobre esse codigo
+      - uses: action/checkout@v3
+      - name: usar node 18.x
+        #Action que instala o node na maquina garantindo a versão estavel que o codigo utiliza
+        uses: action/node-setup@v3
+        with: 
+          node-version: 18.x
+        #Executa comandos na maquina para instalar dependencias do projeto realizar o build e por fim executar o teste unitario
+      - name: instalar dependencias
+        run: npm install
+      - name: build
+        run: npm run build
+      - name: Executar teste unitario
+        run: npx test
+      
+    
+  
