@@ -1,0 +1,18 @@
+#Nome da Action
+name: Minha primeira Action
+
+#Trigger para ser executada
+on:
+  workflow_dispatch:
+
+#Definição do que ela executará
+jobs:
+  acao_inicial_job:
+    runs-on: ubunto-latest
+    steps:
+      - name: first_step
+        run: echo "Ola github Actions"
+      - name: second_step
+        run: echo "Tchau github Actions"
+          
+
